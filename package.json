@@ -1,0 +1,11 @@
+{
+  "name": "cran-code-api",
+  "version": "1.0.0",
+  "main": "serve.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "Higor Costa",
+  "license": "ISC",
+  "description": ""
+}
