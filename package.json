@@ -7,5 +7,9 @@
   },
   "author": "Higor Costa",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "D": "^1.0.0",
+    "git-commit-msg-linter": "^5.0.8"
+  }
 }
