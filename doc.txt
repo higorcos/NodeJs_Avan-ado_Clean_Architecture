@@ -1,0 +1,14 @@
+usaremos Conventional Commits 1.0.0, não compretamente mas uma parte da modelo de Commits
+https://www.conventionalcommits.org/en/v1.0.0/
+<type><description>
+
+type 
+    fix: correção
+    feat: funcionalidade
+    build: construção (configuração do sistema de build ou dependências)
+    chore: tarefa (mudanças menores ou manutenção sem impacto direto no código)
+    docs: documentação
+    style: estilo (ajustes de formatação, espaços, etc., sem alterar o código funcional)
+    refactor: refatoração (reorganização do código sem alterar seu comportamento externo)
+    perf: performance (melhorias de desempenho)
+    test: testes (adição ou modificação de testes)
