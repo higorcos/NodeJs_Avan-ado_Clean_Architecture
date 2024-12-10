@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "serve.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:staged": "jest"
   },
   "author": "Higor Costa",
   "license": "ISC",
