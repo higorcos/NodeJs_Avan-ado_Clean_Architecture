@@ -1,3 +1,4 @@
+import { MissingParamError } from '../error/missing-param-error';
 import { SignUpController } from './signup';
 
 describe('Controlador de login', () => {
@@ -13,7 +14,7 @@ describe('Controlador de login', () => {
     };
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('parâmetro ausente: name'));
+    expect(httpResponse.body).toEqual(new MissingParamError('name'));
   });
 
   test('Deve retornar 400, se não enviar o email do usuário', () => {
@@ -28,6 +29,6 @@ describe('Controlador de login', () => {
     };
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('parâmetro ausente: email'));
+    expect(httpResponse.body).toEqual(new MissingParamError('email'));
   });
 });
