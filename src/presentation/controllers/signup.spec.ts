@@ -103,4 +103,22 @@ describe('Controlador de login', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError('email'));
   });
+  test('Deve retornar error, se o email passado não foi foi o mesmo que passou pela válidação', () => {
+    const { sut, emailValidatorStub } = makeSut();
+
+    //vai espionar a respota
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'new_email@gmail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    };
+    sut.handle(httpRequest);
+    expect(isValidSpy).toHaveBeenCalledWith('new_email@gmail.com');
+    //expect(httpResponse.body).toEqual(new InvalidParamError('email'));
+  });
 });
