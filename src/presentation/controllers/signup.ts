@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MissingParamError, InvalidParamError } from '../error';
 import { badRequest, serverError } from '../helpers/http-helper';
 import {

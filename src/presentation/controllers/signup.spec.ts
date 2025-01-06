@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NewLineKind } from 'typescript';
 import { MissingParamError, InvalidParamError, ServerError } from '../error';
 import { EmailValidator } from '../protocols';
 import { SignUpController } from './signup';
@@ -7,13 +9,26 @@ interface SutType {
   emailValidatorStub: EmailValidator;
 }
 
-const makeSut = (): SutType => {
+const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
     isValid(email: string): boolean {
       return true;
     }
   }
-  const emailValidatorStub = new EmailValidatorStub();
+  return new EmailValidatorStub();
+};
+
+const makeEmailValidatorWhithError = (): EmailValidator => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid(email: string): boolean {
+      throw new Error();
+    }
+  }
+  return new EmailValidatorStub();
+};
+
+const makeSut = (): SutType => {
+  const emailValidatorStub = makeEmailValidator();
   const sut = new SignUpController(emailValidatorStub);
   return {
     sut,
@@ -123,12 +138,7 @@ describe('Controlador de login', () => {
   });
 
   test('Deve retornar 500, se o serviço de validação de email apresentar error', () => {
-    class EmailValidatorStub implements EmailValidator {
-      isValid(email: string): boolean {
-        throw new Error();
-      }
-    }
-    const emailValidatorStub = new EmailValidatorStub();
+    const emailValidatorStub = makeEmailValidatorWhithError();
     const sut = new SignUpController(emailValidatorStub);
 
     const httpRequest = {
