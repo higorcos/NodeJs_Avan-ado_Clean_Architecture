@@ -1,5 +1,6 @@
 import { InvalidParamError } from '../error/invalid-param-error';
 import { MissingParamError } from '../error/missing-param-error';
+import { ServerError } from '../error/server-error';
 import { EmailValidator } from '../protocols/email-validator';
 import { SignUpController } from './signup';
 
@@ -103,6 +104,7 @@ describe('Controlador de login', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError('email'));
   });
+
   test('Deve retornar error, se o email passado não foi foi o mesmo que passou pela válidação', () => {
     const { sut, emailValidatorStub } = makeSut();
 
@@ -120,5 +122,27 @@ describe('Controlador de login', () => {
     sut.handle(httpRequest);
     expect(isValidSpy).toHaveBeenCalledWith('new_email@gmail.com');
     //expect(httpResponse.body).toEqual(new InvalidParamError('email'));
+  });
+
+  test('Deve retornar 500, se o serviço de validação de email apresentar error', () => {
+    class EmailValidatorStub implements EmailValidator {
+      isValid(email: string): boolean {
+        throw new Error();
+      }
+    }
+    const emailValidatorStub = new EmailValidatorStub();
+    const sut = new SignUpController(emailValidatorStub);
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'email@gmail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    };
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse.body).toEqual(new ServerError());
   });
 });
