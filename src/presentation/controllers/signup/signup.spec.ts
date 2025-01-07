@@ -151,7 +151,7 @@ describe('Controlador de login', () => {
   test('Deve retornar error, se o email passado não foi foi o mesmo que passou pela válidação', () => {
     const { sut, emailValidatorStub } = makeSut();
 
-    //vai espionar a respota
+    //vai espionar a resposta
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
 
     const httpRequest = {
@@ -189,7 +189,7 @@ describe('Controlador de login', () => {
   test('Deve retornar sucesso, se adicioanr uma conta com valores válidos', () => {
     const { sut, addAccountStub } = makeSut();
 
-    //vai espionar a respota
+    //vai espionar a resposta
     const addAccountSpy = jest.spyOn(addAccountStub, 'add');
 
     const httpRequest = {
@@ -225,5 +225,26 @@ describe('Controlador de login', () => {
     const httpResponse = sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
     expect(httpResponse.body).toEqual(new ServerError());
+  });
+
+  test('Deve retornar 200, usuário criado', () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        name: 'valid_name',
+        email: 'valid_email',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    };
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body).toEqual({
+      id: 'id',
+      name: 'name',
+      email: 'email',
+      password: 'q245234'
+      //resposta fixa vindo da junção add no controller
+    });
   });
 });
