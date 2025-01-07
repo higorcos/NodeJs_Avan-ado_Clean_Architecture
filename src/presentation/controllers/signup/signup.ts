@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MissingParamError, InvalidParamError } from '../../error';
-import { badRequest, serverError } from '../../helpers/http-helper';
+import {
+  badRequest,
+  serverError,
+  SucessReponse
+} from '../../helpers/http-helper';
 import {
   HttpRequest,
   HttpResponse,
@@ -42,11 +46,13 @@ export class SignUpController implements Controller {
         return badRequest(new InvalidParamError('email'));
       }
 
-      this.addAccount.add({
+      const account = this.addAccount.add({
         name,
         email,
         password
       });
+
+      return SucessReponse(account);
     } catch (error) {
       return serverError();
     }
