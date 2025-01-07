@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { MissingParamError, InvalidParamError } from '../error';
-import { badRequest, serverError } from '../helpers/http-helper';
+import { MissingParamError, InvalidParamError } from '../../error';
+import { badRequest, serverError } from '../../helpers/http-helper';
 import {
   HttpRequest,
   HttpResponse,
   Controller,
-  EmailValidator
-} from '../protocols';
-
-import { AddAccount, AddAccountModel } from '../../domain/usecases/add-account';
-import { AccountModel } from '../../domain/models/account';
+  EmailValidator,
+  AddAccount
+} from './signup-protocols';
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator;
