@@ -186,7 +186,7 @@ describe('Controlador de login', () => {
     expect(httpResponse.body).toEqual(new ServerError());
   });
 
-  test('Deve retornar 200, se adicioanr uma conta com valores válidos', () => {
+  test('Deve retornar sucesso, se adicioanr uma conta com valores válidos', () => {
     const { sut, addAccountStub } = makeSut();
 
     //vai espionar a respota
@@ -206,5 +206,24 @@ describe('Controlador de login', () => {
       email: 'new_email@gmail.com',
       password: 'any_password'
     });
+  });
+
+  test('Deve retornar 500, se o serviço de criação de usuário apresentar error', () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
+      throw new Error();
+    });
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'email@gmail.com',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    };
+    const httpResponse = sut.handle(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+    expect(httpResponse.body).toEqual(new ServerError());
   });
 });
