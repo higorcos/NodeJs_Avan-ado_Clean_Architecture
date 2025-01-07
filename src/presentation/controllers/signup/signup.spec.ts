@@ -170,7 +170,7 @@ describe('Controlador de login', () => {
   test('Deve retornar 500, se o serviço de validação de email apresentar error', async () => {
     const { sut, emailValidatorStub } = makeSut();
     jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
-      throw new Error();
+      throw new Promise((resolve, reject) => reject(new Error()));
     });
 
     const httpRequest = {
@@ -211,7 +211,7 @@ describe('Controlador de login', () => {
   test('Deve retornar 500, se o serviço de criação de usuário apresentar error', async () => {
     const { sut, addAccountStub } = makeSut();
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
-      throw new Error();
+      throw new Promise((resolve, reject) => reject(new Error()));
     });
 
     const httpRequest = {
