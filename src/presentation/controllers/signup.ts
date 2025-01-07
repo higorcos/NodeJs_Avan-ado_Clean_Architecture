@@ -8,11 +8,16 @@ import {
   EmailValidator
 } from '../protocols';
 
+import { AddAccount, AddAccountModel } from '../../domain/usecases/add-account';
+import { AccountModel } from '../../domain/models/account';
+
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator;
+  private readonly addAccount: AddAccount;
 
-  constructor(paramsEmailValidator: EmailValidator) {
+  constructor(paramsEmailValidator: EmailValidator, addAccount: AddAccount) {
     this.emailValidator = paramsEmailValidator;
+    this.addAccount = addAccount;
   }
 
   handle(httpRequest: HttpRequest): HttpResponse {
@@ -38,6 +43,12 @@ export class SignUpController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'));
       }
+
+      this.addAccount.add({
+        name,
+        email,
+        password
+      });
     } catch (error) {
       return serverError();
     }
