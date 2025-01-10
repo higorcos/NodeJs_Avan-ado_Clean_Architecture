@@ -61,7 +61,7 @@ describe('DdAddAccount Usecase', () => {
     expect(encryptSpy).toHaveBeenCalledWith(accountData.password);
   });
 
-  test('Verificar se tem tá mandando a exceção(try) para o controlador', async () => {
+  test('Verificar se tem tá mandando a exceção(try)(encrypt) para o controlador', async () => {
     const { sut, encrypterStub } = makeSut();
     jest
       .spyOn(encrypterStub, 'encrypt')
@@ -93,5 +93,22 @@ describe('DdAddAccount Usecase', () => {
       email: 'valid_email',
       password: 'hashed_password'
     });
+  });
+
+  test('Verificar se tem tá mandando a exceção(try)(addAccount) para o controlador', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut();
+    jest
+      .spyOn(addAccountRepositoryStub, 'add')
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error()))
+      );
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_email',
+      password: 'valid_password'
+    };
+
+    const promise = sut.add(accountData);
+    await expect(promise).rejects.toThrow();
   });
 });
