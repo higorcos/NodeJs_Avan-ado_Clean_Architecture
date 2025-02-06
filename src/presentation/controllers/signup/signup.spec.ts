@@ -183,7 +183,7 @@ describe('Controlador de login', () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.body).toEqual(new ServerError('')); //Verificar se o erro está vindo vazio
   });
 
   test('Deve retornar sucesso, se adicioanr uma conta com valores válidos', async () => {
@@ -224,7 +224,7 @@ describe('Controlador de login', () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.body).toEqual(new ServerError('')); //Verificar se o erro está vindo vazio
   });
 
   test('Deve retornar 200, usuário criado', async () => {

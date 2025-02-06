@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MissingParamError, InvalidParamError } from '../../error';
 import {
   badRequest,
@@ -54,7 +53,7 @@ export class SignUpController implements Controller {
 
       return SucessReponse(account);
     } catch (error) {
-      return serverError();
+      return serverError(error);
     }
   }
 }
