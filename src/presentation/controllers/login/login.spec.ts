@@ -105,7 +105,7 @@ describe('Login Controller', () => {
     expect(authSpy).toHaveBeenCalledWith('any_email@gmail.com', 'any_password');
   });
 
-  test('Should return 500 if EmailValidator throws', async () => {
+  test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationStub } = makeSut();
     jest
       .spyOn(authenticationStub, 'auth')
