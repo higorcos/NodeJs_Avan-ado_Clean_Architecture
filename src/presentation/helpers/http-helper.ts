@@ -1,6 +1,7 @@
 import { HttpResponse } from '../protocols/https';
-import { ServerError } from '../error';
+import { ServerError, UnauthorizedError } from '../error';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sucessReponse = (data: any): HttpResponse => ({
   statusCode: 200,
   body: data
@@ -9,6 +10,11 @@ export const sucessReponse = (data: any): HttpResponse => ({
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
   body: error
+});
+
+export const unauthorized = (): HttpResponse => ({
+  statusCode: 401,
+  body: new UnauthorizedError()
 });
 
 export const serverError = (error: Error): HttpResponse => ({
