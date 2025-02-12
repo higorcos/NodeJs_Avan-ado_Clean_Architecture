@@ -9,20 +9,28 @@ import {
   HttpResponse,
   Controller,
   EmailValidator,
-  AddAccount
+  AddAccount,
+  Validation
 } from './signup-protocols';
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator;
   private readonly addAccount: AddAccount;
+  private readonly validation: Validation;
 
-  constructor(paramsEmailValidator: EmailValidator, addAccount: AddAccount) {
+  constructor(
+    paramsEmailValidator: EmailValidator,
+    addAccount: AddAccount,
+    validation: Validation
+  ) {
     this.emailValidator = paramsEmailValidator;
     this.addAccount = addAccount;
+    this.validation = validation;
   }
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      this.validation.validate(httpRequest.body);
       const requiredFileds = [
         'name',
         'email',
