@@ -28,7 +28,7 @@ export class LoginController implements Controller {
         );
       }
     } catch (error) {
-      serverError(error);
+      return serverError(error);
     }
   }
 }
