@@ -9,7 +9,7 @@ import {
 } from './signup-protocols';
 import { SignUpController } from './signup';
 import {
-  SucessReponse,
+  sucessReponse,
   serverError,
   badRequest
 } from '../../helpers/http-helper';
@@ -201,7 +201,7 @@ describe('Controlador de login', () => {
   test('Deve retornar 200, usuário criado', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
-    expect(httpResponse).toEqual(SucessReponse(makeFakeAccount()));
+    expect(httpResponse).toEqual(sucessReponse(makeFakeAccount()));
   });
 });
 //251

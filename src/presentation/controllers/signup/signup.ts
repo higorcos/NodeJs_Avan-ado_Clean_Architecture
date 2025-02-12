@@ -2,7 +2,7 @@ import { MissingParamError, InvalidParamError } from '../../error';
 import {
   badRequest,
   serverError,
-  SucessReponse
+  sucessReponse
 } from '../../helpers/http-helper';
 import {
   HttpRequest,
@@ -51,7 +51,7 @@ export class SignUpController implements Controller {
         password
       });
 
-      return SucessReponse(account);
+      return sucessReponse(account);
     } catch (error) {
       return serverError(error);
     }

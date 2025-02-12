@@ -3,7 +3,7 @@ import { LoginController } from './login';
 import {
   badRequest,
   serverError,
-  SucessReponse
+  sucessReponse
 } from '../../helpers/http-helper';
 import { MissingParamError, InvalidParamError } from '../../error';
 import { HttpRequest } from '../../protocols';

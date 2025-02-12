@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   serverError,
-  SucessReponse
+  sucessReponse
 } from '../../presentation/helpers/http-helper';
 import {
   Controller,
@@ -16,7 +16,7 @@ const makeController = (): Controller => {
   class ControllerStub implements Controller {
     async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
       return await new Promise((resolve) =>
-        resolve(SucessReponse(makeFakeAccount()))
+        resolve(sucessReponse(makeFakeAccount()))
       );
     }
   }
