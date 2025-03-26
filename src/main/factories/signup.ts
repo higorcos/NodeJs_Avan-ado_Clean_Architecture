@@ -6,6 +6,7 @@ import { AccountMongoRepository } from '../../infra/db/mongodb/account-repositor
 import { LogMongoRepository } from '../../infra/db/mongodb/log-repository/log';
 import { LogControllerDecorator } from '../decorators/log';
 import { Controller } from '../../presentation/protocols';
+import { ValidationComposite } from '../../presentation/helpers/validatiors/validation-composite';
 
 export const makeSignUpController = (): Controller => {
   const salt = 12;
@@ -13,10 +14,11 @@ export const makeSignUpController = (): Controller => {
   const bcryptAdapter = new BcryptAdapter(salt);
   const accountMongoRepository = new AccountMongoRepository();
   const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository);
-
+  const validationComposite = new ValidationComposite([]);
   const signUpController = new SignUpController(
     emailValidatorAdapter,
-    dbAddAccount
+    dbAddAccount,
+    validationComposite
   );
   return new LogControllerDecorator(signUpController, new LogMongoRepository());
 };
