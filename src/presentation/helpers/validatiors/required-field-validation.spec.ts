@@ -13,7 +13,7 @@ describe('RequiredField Validation', () => {
   //Não deve retornar se a validação for bem-sucedida
   test('Should not return if validation succeeds', () => {
     const sut = makeSut();
-    const error = sut.validate({ name: 'any_name' });
+    const error = sut.validate({ field: 'any_name' });
     expect(error).toBeFalsy();
   });
 });
